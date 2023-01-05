@@ -1,8 +1,8 @@
 import { configureStore, createAction, createReducer } from '@reduxjs/toolkit';
 
-const addContact = createAction('contacts/addContact');
-const removeContact = createAction('contacts/removeContact');
-const setFilter = createAction('filter/setFilter');
+export const addContact = createAction('contacts/addContact');
+export const removeContact = createAction('contacts/removeContact');
+export const changeFilter = createAction('filter/changeFilter');
 
 const localStorageKey = 'UserContacts';
 
@@ -22,7 +22,7 @@ const contactsReducer = createReducer(getInitialContacts(), {
 });
 
 const filterReducer = createReducer('', {
-  [setFilter]: (state, action) => action.payload,
+  [changeFilter]: (state, action) => action.payload,
 });
 
 export const store = configureStore({

@@ -1,23 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AddContactForm from './AddContactForm';
 import ListOfContacts from './ListOfContacts';
 import Filter from './Filter';
 import { Title } from './AddContactForm/AddContactForm.styled';
+import { addContact, removeContact, changeFilter } from './redux/store';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
+
   const localStorageKey = 'UserContacts';
 
-  const [contacts, setContacts] = useState(() => {
-    const savedContacts = localStorage.getItem(localStorageKey);
+  // const [contacts, setContacts] = useState(() => {
+  //   const savedContacts = localStorage.getItem(localStorageKey);
 
-    if (savedContacts !== null) {
-      return JSON.parse(savedContacts);
-    }
-    return [];
-  });
-  const [filter, setFilter] = useState('');
+  //   if (savedContacts !== null) {
+  //     return JSON.parse(savedContacts);
+  //   }
+  //   return [];
+  // });
+  // const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(contacts));
@@ -34,14 +41,16 @@ const App = () => {
       alert(`${newContact.name} already in contact list`);
       return;
     }
-
-    setContacts(ps => [...ps, newContact]);
+    dispatch(addContact(newContact));
+    // setContacts(ps => [...ps, newContact]);
   };
 
-  const setFilterHandler = f => setFilter(f.toLowerCase());
+  const setFilterHandler = f => dispatch(changeFilter(f.toLowerCase()));
+  // setFilter(f.toLowerCase());
 
   const contactDeleter = id => {
-    setContacts(ps => ps.filter(contact => contact.id !== id));
+    // setContacts(ps => ps.filter(contact => contact.id !== id));
+    dispatch(removeContact(id));
   };
 
   const listToRender = contacts.filter(contact => {
