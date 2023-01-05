@@ -16,16 +16,6 @@ const App = () => {
 
   const localStorageKey = 'UserContacts';
 
-  // const [contacts, setContacts] = useState(() => {
-  //   const savedContacts = localStorage.getItem(localStorageKey);
-
-  //   if (savedContacts !== null) {
-  //     return JSON.parse(savedContacts);
-  //   }
-  //   return [];
-  // });
-  // const [filter, setFilter] = useState('');
-
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(contacts));
   }, [contacts]);
@@ -42,14 +32,11 @@ const App = () => {
       return;
     }
     dispatch(addContact(newContact));
-    // setContacts(ps => [...ps, newContact]);
   };
 
   const setFilterHandler = f => dispatch(changeFilter(f.toLowerCase()));
-  // setFilter(f.toLowerCase());
 
   const contactDeleter = id => {
-    // setContacts(ps => ps.filter(contact => contact.id !== id));
     dispatch(removeContact(id));
   };
 
