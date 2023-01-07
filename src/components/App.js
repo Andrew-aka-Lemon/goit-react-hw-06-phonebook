@@ -6,7 +6,12 @@ import AddContactForm from './AddContactForm';
 import ListOfContacts from './ListOfContacts';
 import Filter from './Filter';
 import { Title } from './AddContactForm/AddContactForm.styled';
-import { addContact, removeContact, changeFilter } from './redux/store';
+
+import { filterSlice } from './redux/filerSlice';
+import { contactsSlice } from './redux/contactsSlice';
+
+const { addContact, removeContact } = contactsSlice.actions;
+const { changeFilter } = filterSlice.actions;
 
 const App = () => {
   const dispatch = useDispatch();
