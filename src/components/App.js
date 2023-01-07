@@ -6,8 +6,8 @@ import ListOfContacts from './ListOfContacts';
 import Filter from './Filter';
 import { Title } from './AddContactForm/AddContactForm.styled';
 
-import { filterSlice } from './redux/filerSlice';
-import { contactsSlice } from './redux/contactsSlice';
+import { filterSlice, getFilter } from './redux/filerSlice';
+import { contactsSlice, getContacts } from './redux/contactsSlice';
 
 const { addContact, removeContact } = contactsSlice.actions;
 const { changeFilter } = filterSlice.actions;
@@ -15,8 +15,8 @@ const { changeFilter } = filterSlice.actions;
 const App = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(state => state.contacts.contacts);
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   const addContactHandler = newContact => {
     if (

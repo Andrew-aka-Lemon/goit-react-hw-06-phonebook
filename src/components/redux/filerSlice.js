@@ -9,3 +9,5 @@ export const filterSlice = createSlice({
     },
   },
 });
+
+export const getFilter = state => state.filter;
