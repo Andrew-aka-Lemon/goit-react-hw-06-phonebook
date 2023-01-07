@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,14 +15,8 @@ const { changeFilter } = filterSlice.actions;
 const App = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.contacts);
   const filter = useSelector(state => state.filter);
-
-  const localStorageKey = 'UserContacts';
-
-  useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(contacts));
-  }, [contacts]);
 
   const addContactHandler = newContact => {
     if (
@@ -44,6 +37,7 @@ const App = () => {
   const contactDeleter = id => {
     dispatch(removeContact(id));
   };
+  console.log(contacts);
 
   const listToRender = contacts.filter(contact => {
     return contact.name.toLowerCase().includes(filter);
