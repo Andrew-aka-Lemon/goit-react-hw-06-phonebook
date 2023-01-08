@@ -1,8 +1,25 @@
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { contactsSlice } from '../../redux/contactsSlice';
+import { getFilter } from '../../redux/filerSlice';
+import { getContacts } from '../../redux/contactsSlice';
 
 import { Lishka, NotUglyBtn } from './ListOfContacts.styled';
 
-const ListOfContacts = ({ onDeleteBtn, listToRender }) => {
+const ListOfContacts = () => {
+  const { removeContact } = contactsSlice.actions;
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+  const contacts = useSelector(getContacts);
+
+  const contactDeleter = id => {
+    dispatch(removeContact(id));
+  };
+
+  const listToRender = contacts.filter(contact => {
+    return contact.name.toLowerCase().includes(filter);
+  });
+
   return (
     <div>
       <ul>
@@ -12,7 +29,7 @@ const ListOfContacts = ({ onDeleteBtn, listToRender }) => {
               <span>
                 {name}: {number}
               </span>
-              <NotUglyBtn type="button" onClick={() => onDeleteBtn(id)}>
+              <NotUglyBtn type="button" onClick={() => contactDeleter(id)}>
                 Delete
               </NotUglyBtn>
             </Lishka>
@@ -21,17 +38,6 @@ const ListOfContacts = ({ onDeleteBtn, listToRender }) => {
       </ul>
     </div>
   );
-};
-
-ListOfContacts.propTypes = {
-  listToRender: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onDeleteBtn: PropTypes.func,
 };
 
 export default ListOfContacts;

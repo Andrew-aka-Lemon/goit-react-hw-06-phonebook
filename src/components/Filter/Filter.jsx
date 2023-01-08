@@ -1,7 +1,17 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Filter = ({ onChange, filterText }) => {
+import { filterSlice, getFilter } from '../../redux/filerSlice';
+
+const Filter = () => {
+  const { changeFilter } = filterSlice.actions;
+
+  const dispatch = useDispatch();
+
+  const filter = useSelector(getFilter);
+
+  const setFilterHandler = f => dispatch(changeFilter(f.toLowerCase()));
+
   return (
     <div>
       <Title>Find contact by name</Title>
@@ -9,9 +19,9 @@ const Filter = ({ onChange, filterText }) => {
         name="filter"
         type="text"
         onChange={e => {
-          onChange(e.currentTarget.value);
+          setFilterHandler(e.currentTarget.value);
         }}
-        value={filterText}
+        value={filter}
       />
     </div>
   );
@@ -21,10 +31,5 @@ const Title = styled.p`
   margin: 0;
   margin-top: 10px;
 `;
-
-Filter.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  filterText: PropTypes.string.isRequired,
-};
 
 export default Filter;
