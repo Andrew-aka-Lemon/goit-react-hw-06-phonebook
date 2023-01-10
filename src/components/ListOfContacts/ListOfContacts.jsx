@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-
-import { contactsSlice } from '../../redux/contactsSlice';
-import { getFilter } from '../../redux/filerSlice';
-import { getContacts } from '../../redux/contactsSlice';
+import { contactsSlice, getContacts } from 'redux/contactsSlice';
+import { getFilter } from 'redux/filerSlice';
 
 import { Lishka, NotUglyBtn } from './ListOfContacts.styled';
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { filterSlice, getFilter } from '../../redux/filerSlice';
+import { filterSlice, getFilter } from 'redux/filerSlice';
 
 const Filter = () => {
   const { changeFilter } = filterSlice.actions;
